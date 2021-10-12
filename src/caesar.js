@@ -3,17 +3,21 @@
 // Only add code (e.g., helper methods, variables, etc.) within the scope
 // of the anonymous function on line 6
 
-const caesarModule = (function () {
-  // you can add any code you want within this function scope
+const caesarModule = (function() {
+    // you can add any code you want within this function scope
 
-  function caesar(input, shift, encode = true) {
-    // your solution code here
-  }
+    function caesar(input, shift, encode = true) {
+        if (!shift || shift === 0 || shift < -25 || shift > 25) {
+            return false;
+        }
+        for (let i in input) {
+            console.log(input[i]);
+        }
+    }
 
-  return {
-    caesar,
-  };
+    return {
+        caesar,
+    };
 })();
 
 module.exports = { caesar: caesarModule.caesar };
-np
