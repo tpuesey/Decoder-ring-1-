@@ -1,55 +1,36 @@
-const { expect } = require("chai");
-const { polybius } = require("../src/polybius");
+// Write your tests here!
+const { expect } = require('chai');
+const { polybius } = require('../src/polybius');
 
-describe("Polybius function", () => {
-    it("encodes an input of letters into numbers", () => {
-        const input = "three";
-        const actual = polybius(input);
-        const expected = "4432245151";
-
+describe("Polybius tests", () => {
+    it("When encoding, it traslates i and j to 42", () => {
+        const input = "ij"
+        const expected = "4242"
+        const actual = polybius(input, true);
         expect(actual).to.equal(expected);
     });
-    it("decodes an input of numbers into letters", () => {
-        const input = "4432245151";
-        const actual = polybius(input, false);
-        const expected = "three";
-
-        expect(actual).to.equal(expected);
-    });
-    it("encodes both the letters i and j to 42", () => {
-        const input = "ij";
-        const actual = polybius(input);
-        const expected = "4242";
-
-        expect(actual).to.equal(expected);
-    });
-    it("decodes the number 42 to (i/j)", () => {
+    it("When decoding, it translates 42 to 'i/j'.", () => {
         const input = "42";
+        const expected = "i/j";
         const actual = polybius(input, false);
-        const expected = "(i/j)";
-
         expect(actual).to.equal(expected);
     });
-    it("ignores capital letters (treats lowercase and uppercase letters as the same)", () => {
-        const lowercaseInput = "three";
-        const uppercaseInput = "THREE";
-        const lowercaseCall = polybius(lowercaseInput);
-        const uppercaseCall = polybius(uppercaseInput);
-
-        expect(lowercaseCall).to.equal(uppercaseCall);
-    });
-    it("maintains spaces in the message before and after encoding", () => {
-        const input = "three little pigs";
-        const actual = polybius(input);
-        const expected = "4432245151 134244441351 53422234";
-
+    it("It ignores capital letters", () => {
+        const input = "HELLO WORLD";
+        const expected = "3251131343 2543241341";
+        const actual = polybius(input, true);
         expect(actual).to.equal(expected);
     });
-    it("maintains spaces in the message before and after decoding", () => {
-        const input = "4432245151 134244441351 53422234";
+    it("should maintain spaces before and after encoding", () => {
+        const input = "h e l l o";
+        const expected = "32 51 13 13 43";
+        const actual = polybius(input, true);
+        expect(actual).to.equal(expected);
+    })
+    it("should maintain spaces before and after decoding", () => {
+        const input = "32 51 13 13 43";
+        const expected = "h e l l o";
         const actual = polybius(input, false);
-        const expected = "three l(i/j)ttle p(i/j)gs";
-
         expect(actual).to.equal(expected);
-    });
+    })
 });
